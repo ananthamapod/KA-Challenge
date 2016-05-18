@@ -12,25 +12,22 @@ class Graph(object):
     def add_user(self, username, userid, version):
         user = User(username, userid, version)
         self.v[username] = user
-        self.e[username] = {'students': {}, 'teachers': {}}
+        self.e[username] = Relation()
 
     """Connect a student and teacher in the KA graph"""
-    def connect(self, teacher, student):
-        teacher = self.v[teacher]
-        student = self.v[student]
-        edge = Relation(teacher.name, student.name)
-        self.e[teacher.name]['students'][student.name] = edge
-        self.e[student.name]['teachers'][teacher.name] = edge
+    def connect(self, teachername, studentname):
+        self.e[teachername].students.add(studentname)
+        self.e[studentname].teachers.add(teachername)
 
     """Deletes a user from the KA graph and eliminates
     all existing relationships involving the user"""
     def delete_user(self, username):
         ue = self.e[username]
-        for sid in ue['students']:
-            se = self.e[sid]['teachers']
-            del se[username]
-        for tid in ue['teachers']:
-            te = self.e[tid]['students']
-            del te[username]
+        for sid in ue.students:
+            se = self.e[sid].teachers
+            se.discard(username)
+        for tid in ue.teachers:
+            te = self.e[tid].students
+            te.discard(username)
         del self.e[username]
         del self.v[username]
