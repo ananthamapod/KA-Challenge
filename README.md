@@ -23,6 +23,28 @@ We would like to be able to infect close to a given number of users. Ideally weâ
 
 This must be handled in a more delicate way. One method of doing this is to use a greedy algorithm that looks, at each user, at the number of students the user has, and then the number of students that each of the user's teachers has, and then infects starting from smallest to largest in size while there.
 
+## Usage
+
+### Setup
+
+In order to use the visualization portion of this assignment, some python packages need to be installed, preferably in a virtual environment. For more information on virtual environments in Python, see [Virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+
+    pip install -r requirements.txt
+
+### Testing
+
+The program is run from the main directory with the line that follows:
+
+    python main.py
+
+When the program is run, the program pauses for input asking which test case to run. The test cases can be viewed in the
+
+    if __name__ == "__main__":
+    
+    ...
+
+section of main.py. Once a testcase is selected, a visualization of the graph will appear, and the program will continue through either the total_infection or limited_infection functions, depending on which on is selected.
+
 ## Graph Design
 
 If users represent nodes in a graph, there are 2 kinds of relationships or edges to be modeled. There are both coaching and coached by relations. Therefore, a graph with colored edges would be the most applicable. Using an adjacency matrix would be the most convenient, as colored edges can be represented with different edge values. However, given that this is a graph of all a huge userbase, and adjacency matrix would be a spatial nightmare.
@@ -33,23 +55,23 @@ Therefore, an adjacency list representation is used, where the edges for each us
 
   * v
 
-    * [username]
+    * [username] -> User object
 
     * ...
 
   * e
 
-    * [username]
+    * [username] -> Relation object
 
-      * 'students'
+      * students
 
-        * [username] -> Relation
+        * [username]
 
         * ...
 
-      * 'teachers'
+      * teachers
 
-        * [username] -> Relation
+        * [username]
 
         * ...
 
