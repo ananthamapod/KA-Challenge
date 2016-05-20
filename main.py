@@ -1,4 +1,5 @@
 from models.graph import Graph
+from vis import Infection_Visual
 import collections
 import pdb
 
@@ -122,45 +123,57 @@ def limited_infection(kaGraph, username, n):
                     teachers = collections.deque(sorted(teachers, key=lambda x: scounts[x]))
 """
 
+
+"""Simple utility to consolidate actions associated with adding an edge to the KA user graph"""
+def add_edge(graph, visual, edge_start, edge_end):
+    graph.connect(edge_start, edge_end)
+    visual.graph.add_edge(edge_start, edge_end)
+
 if __name__ == "__main__":
     names = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s"]
     ids = list(range(1,20))
     g = Graph()
+    visual = Infection_Visual()
+
     for i in range(len(names)):
         g.add_user(names[i], ids[i], i)
+        visual.graph.add_node(names[i])
 
     choice = int(raw_input("Input test case number: "))
     if choice == 1:
-        g.connect("a","b")
-        g.connect("b","d")
+        add_edge(g, visual, "a","b")
+        add_edge(g, visual, "b","d")
+        visual.draw()
         #total_infection(g, "b")
         pdb.set_trace()
         limited_infection(g, "b", 5)
     elif choice == 2:
-        g.connect("a","b")
+        add_edge(g, visual, "a","b")
+        visual.draw()
         #total_infection(g, "g")
         pdb.set_trace()
         limited_infection(g, "g", 5)
     else:
-        g.connect("a","b")
-        g.connect("b","d")
-        g.connect("d","h")
-        g.connect("d","i")
-        g.connect("d","j")
-        g.connect("c","h")
-        g.connect("c","g")
-        g.connect("e","h")
-        g.connect("e","g")
-        g.connect("e","f")
-        g.connect("h","k")
-        g.connect("h","l")
-        g.connect("h","m")
-        g.connect("h","n")
-        g.connect("k","o")
-        g.connect("l","p")
-        g.connect("n","q")
-        g.connect("n","r")
-        g.connect("o","s")
+        add_edge(g, visual, "a","b")
+        add_edge(g, visual, "b","d")
+        add_edge(g, visual, "d","h")
+        add_edge(g, visual, "d","i")
+        add_edge(g, visual, "d","j")
+        add_edge(g, visual, "c","h")
+        add_edge(g, visual, "c","g")
+        add_edge(g, visual, "e","h")
+        add_edge(g, visual, "e","g")
+        add_edge(g, visual, "e","f")
+        add_edge(g, visual, "h","k")
+        add_edge(g, visual, "h","l")
+        add_edge(g, visual, "h","m")
+        add_edge(g, visual, "h","n")
+        add_edge(g, visual, "k","o")
+        add_edge(g, visual, "l","p")
+        add_edge(g, visual, "n","q")
+        add_edge(g, visual, "n","r")
+        add_edge(g, visual, "o","s")
+        visual.draw()
         #total_infection(g, "d")
         pdb.set_trace()
         limited_infection(g, "h", 10)
