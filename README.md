@@ -10,7 +10,7 @@ It is desired to keep the deployment of new features to the Khan Academy environ
 ## Methods
 #### Total Infection
 
-Using the heuristic that every student-teacher pair must be on the same version of the site, when a new feature is rolled out to a user, all students coached by the user and all teachers coaching the user shall also receive the new feature. Essentially the connected component originating from the user is "totally infected".
+Using the heuristic that every student-teacher pair must be on the same version of the site, when a new feature is rolled out to a user, all students coached by the user and all teachers coaching the user shall also receive the new feature. Essentially the connected component originating from the user is "totally infected". This can be done using a breadth first expansion about an origin user.
 
 
 #### Limited Infection
@@ -20,6 +20,8 @@ Using the same heuristic as total infection, but limiting the number of users "i
 **From the assignment prompt**: "The problem with infection is lack of control over the number of users that eventually become infected. Starting an infection could cause only that person to become infected or at the opposite (unrealistic) extreme it could cause all users to become infected.
 
 We would like to be able to infect close to a given number of users. Ideally we’d like a coach and all of their students to either have a feature or not. However, that might not always be possible."
+
+This must be handled in a more delicate way. One method of doing this is to use a greedy algorithm that looks, at each user, at the number of students the user has, and then the number of students that each of the user's teachers has, and then infects starting from smallest to largest in size while there.
 
 ## Graph Design
 
